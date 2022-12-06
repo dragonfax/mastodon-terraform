@@ -70,7 +70,7 @@ resource "aws_iam_policy" "s3_access" {
 }
 
 resource "aws_iam_user" "s3_access" {
-  name = "Mastodon-S3-Access"
+  name = "${var.domain}-S3-Access"
 }
 
 resource "aws_iam_policy_attachment" "s3_access" {
@@ -87,7 +87,6 @@ resource "aws_iam_access_key" "s3_key" {
 ## Backup of the persistent volume
 
 resource "aws_iam_role" "dlm_lifecycle_role" {
-  name = "dlm-lifecycle-role"
 
   assume_role_policy = <<EOF
 {

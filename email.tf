@@ -7,18 +7,14 @@ resource "aws_ses_domain_identity" "email" {
   domain = var.domain
 }
 
-resource "aws_route53_record" "email_verification" {
-  zone_id = aws_route53_zone.mastodon.zone_id
-  name    = "_amazonses.${aws_route53_zone.mastodon.name}"
-  type    = "TXT"
-  ttl     = "600"
-  records = [aws_ses_domain_identity.email.verification_token]
-}
-
 resource "aws_ses_domain_identity_verification" "email_verification" {
   domain = aws_ses_domain_identity.email.id
 
-  depends_on = [aws_route53_record.email_verification]
+  depends_on = [aws_route53_record.amazonses_dkim_record]
+
+  timeouts {
+    create = "10s"
+  }
 }
 
 resource "aws_ses_domain_dkim" "email" {
@@ -36,7 +32,6 @@ resource "aws_route53_record" "amazonses_dkim_record" {
 }
 
 resource "aws_iam_policy" "send_email" {
-  # name = "mastodon-send-email"
   policy = <<-EOF
     {
       "Version": "2012-10-17",
@@ -53,7 +48,7 @@ resource "aws_iam_policy" "send_email" {
 }
 
 resource "aws_iam_user" "send_email" {
-  name = "Mastodon-Send-Email"
+  name = "${var.domain}-Send-Email"
 }
 
 resource "aws_iam_policy_attachment" "send_email" {

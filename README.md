@@ -45,7 +45,12 @@ Now AWS can use your domain.
 3. copy terraform.tfvars.example and fill in the values.
 3. `terraform init`
 3. `terraform apply`
-Your mastadon server is up and running.  It may take a minute or two the first time.
+type "yes" when it asks to apply.
+Its going to fail due to an email verification bug in AWS.
+Just ignore that, i'll continue to very in the background
+4. `terraform apply`
+
+4. Your mastadon server is up and running.  It may take a minute or two the first time.
 4. save your terraform state (its in this directory) somewhere save and secure.
 
 [https://&lt;your domain&gt;](https://your-domain)

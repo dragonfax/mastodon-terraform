@@ -8,6 +8,8 @@ resource "aws_ses_domain_identity" "email" {
 }
 
 resource "aws_ses_domain_identity_verification" "email_verification" {
+  count = var.email_verify ? 1 : 0
+
   domain = aws_ses_domain_identity.email.id
 
   depends_on = [aws_route53_record.amazonses_dkim_record]

@@ -34,33 +34,50 @@ this is for people that want to "own" their own instance, customize it. maybe ev
 
 # setup
 
-1. create your AWS account
-2. create your iam user credentials
-3. use aws config to put those credentials in your local env, and choose a region
-This is to allow you to run the terraform commands to create/destroy tings in AWS.
-1. register a domain name
-there are no special instructions here for using AWS to register it.
-2. in your domain registrar's interface, point your name servers to the Amazon owned ones. 
-Now AWS can use your domain.
-3. copy terraform.tfvars.example and fill in the values.
-3. `terraform init`
-3. `terraform apply`
-type "yes" when it asks to apply.
-Its going to fail due to an email verification bug in AWS.
-Just ignore that, i'll continue to very in the background
-4. `terraform apply`
+AWS
+  1. create your AWS account
+  2. create your iam user credentials
+  3. use aws config to put those credentials in your local env, and choose a region
+  This is to allow you to run the terraform commands to create/destroy tings in AWS.
 
-4. Your mastadon server is up and running.  It may take a minute or two the first time.
-4. save your terraform state (its in this directory) somewhere save and secure.
+Domain Name
+  1. register a domain name
+  there are no special instructions here for using AWS to register it.
+  2. in your domain registrar's interface, point your name servers to the Amazon owned ones. 
+Now AWS can use your domain.
+
+Terraform
+  3. copy terraform.tfvars.example and fill in the values.
+  3. `terraform init`
+  3. `terraform apply`
+  type "yes" when it asks to apply.
+
+Your mastadon server is up and running.  It may take a minute or two the first time.
 
 [https://&lt;your domain&gt;](https://your-domain)
 
-you'll want to sign up for an account.
 
-follow @dragonfax@sosh.space
+Sign up for an account and off you go.
 
-see below on how to become the owner. 
-from there you can configure Mastondon through its web site.
+Don't forget to follow @dragonfax@sosh.space
+
+
+# feedback
+
+If you give it a try and have issues, give me feedback right here on this repo using github Issues.
+
+# later
+
+4. save your terraform state (its in this directory) somewhere save and secure.
+
+
+5. you'll want to to start the email verification for the domain.
+`TF_VAR_email_verify=true terraform apply`
+this is to start the email verification for the domain.
+I'll fail fast because of a bug in AWS. But just ignore it.
+It'll keep going in the background and eventually succeed. 
+8. see below on how to become the owner. 
+9. from there you can configure Mastondon through its web site.
 
 
 # fooling around
@@ -69,7 +86,7 @@ from there you can configure Mastondon through its web site.
 
 you can ssh into the box with 
 
-`ssh -i keys/ec2.pem ec2-user@sosh.space`
+`ssh -i keys/ec2.pem ec2-user@your-mastodon.site`
 
 the databases are all in /opt/data which is a seperate ebs volume and has snapshots.
 
@@ -111,9 +128,17 @@ and that will copy this repo and its history into your new private repo.
 
 remember that if you don't also commit your terraform state files, then you won't be able to clone and apply terraform from another location.
 
-## if you decide to quite
 
-1. run a toolctl self destruct
+## Common Issues
+
+DNS nameserver changes can take a long time to propogate. If you just pointed your registrars name-servers to AWS then it could take up to 2 days for other hosts on the internet to see that. Even if you clear your local dns cache, the one on letsencrypt might still have the old value. If you have issues with this, just start/stop the instance after a day and then `terraform apply` to get the route53 dns updated.
+You can always stop the instance, in the meantime, to save the money while you wait.
+
+Just remember ot always `terraform apply` after you stop/start the instance, so route53 DNS gets updated.
+
+## if you decide to quit
+
+1. run a toolctl self-destruct
 2. remove the "prevent_destroy" lines from the *.tf files
 3. terraform destroy
 

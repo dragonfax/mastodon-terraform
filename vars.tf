@@ -13,3 +13,8 @@ variable "bucket_name" {
 variable "region" {
   type = string
 }
+
+variable "email_verify" {
+  type = bool
+  default = false
+}

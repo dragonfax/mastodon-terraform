@@ -71,7 +71,7 @@ If you give it a try and have problems, give me feedback by filling out a github
 It has the private keys to your instance, and it also has important files terraform uses if you need to make changes to the infrastructure.
 5. You'll want to to start the email verification for the domain. Otherwise your instance can't send emails. \
 `TF_VAR_email_verify=true terraform apply`\
-I'll fail fast because of a bug in AWS. But just ignore it. It'll keep going in the background and eventually succeed. 
+It'll fail fast because of a bug in AWS. But just ignore it. It'll keep going in the background and eventually succeed. 
 8. See below on how to become the owner of the instance. 
 9. From there you can configure Mastondon through its web site.
 
@@ -136,6 +136,11 @@ Even if you clear your local dns cache, the dns cache on letsencrypt might still
 If you have issues with this, just start/stop the instance after a day and then `terraform apply`, again, to get the route53 DNS updated (double-tap rule).
 
 You can always stop the instance, in the meantime, to save the money while you wait.
+
+### Creating Accounts
+
+You can also create your account from the host with\
+`/usr/local/bin/docker-compose exec web tootctl accounts create <usernmae> --email=<email> --confirmed --role Owner`
 
 ## Time To Quit?
 

@@ -1,9 +1,5 @@
 resource "aws_route53_zone" "mastodon" {
   name = "${var.domain}."
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_route53_record" "mastodon_hostname" {

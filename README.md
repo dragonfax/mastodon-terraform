@@ -3,7 +3,7 @@
 
 Set up a simple Mastodon instance in AWS.
 
-This configuration provides no redudancy or scaling, as its meant for a private instance with only a few accounts on it.
+This configuration provides no redundancy or scaling, as its meant for a private instance with only a few accounts on it.
 
 Its runs all the components on one ec2 instances to reduce cost.
 
@@ -94,12 +94,9 @@ Only nginx listens on an external port. Everything else is sandboxed in the dock
 After signing up on the website, use this command, from the host, to give your account ownership rights.\
 `docker-compose exec web tootctl accounts modify <your username> --role Owner`
 
-
 ## Double-tap Rule
 
 When ever you rerun a `terraform apply`, and it needs to restart the instance, you'll have to run a second `terraform apply` in order to pick up changes to the IP address. AWS changes it everytime the server reboots.
-
-We could aleviate this by using an elastic IP.
 
 ## Commiting Your Changes
 
@@ -124,7 +121,13 @@ Cost allocation tags could be used to see, roughly, the cost of the instance sep
 
 There are additional crontabs that can be setup for instance maintenance and cleanup.
 
+I'm sure some people will want to run their instance ona subdomain.
+
+We could aleviate the doubl-tap rule by using an elastic IP.
+
 ## Common Issues
+
+### DNS Name Servers
 
 DNS nameserver changes can take a long time to propogate. If you just pointed your registrars to AWS name servers, then it could take up to 2 days for other hosts on the internet to see that change. 
 
@@ -136,7 +139,7 @@ You can always stop the instance, in the meantime, to save the money while you w
 
 ## Time To Quit?
 
-1. run a toolctl self-destruct from the host\
+1. from the host\
 `docker-compose exec web tootctl self-destruct`\
 This is important so that other instances know your gone.
 2. remove the "prevent_destroy" lines from the *.tf files. These are a safe-guard from losing important data.

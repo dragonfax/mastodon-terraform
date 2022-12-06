@@ -45,9 +45,10 @@ Domain Name
 Now AWS can use your domain.
 
 Terraform
-  1. copy terraform.tfvars.example and fill in the values.
+  1. clone this repo.
+  1. `cp terraform.tfvars.example terraform.tfvars` and fill in the values.
   2. `terraform init`
-  3. `terraform apply`
+  3. `terraform apply`\
   type "yes" when it asks to apply.
 
 Your mastadon server is up and running.  It may take a minute or two the first time.
@@ -119,6 +120,9 @@ Remember that if you don't also commit your terraform state files, then you won'
 
 Costs could be further reduced by using a Spot Instance. But that would require restarting the instance when AWS terminates it.
 
+Cost allocation tags could be used to see, roughly, the cost of the instance seperate from the other resources in your AWS account.
+
+There are additional crontabs that can be setup for instance maintenance and cleanup.
 
 ## Common Issues
 

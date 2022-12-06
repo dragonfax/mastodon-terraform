@@ -16,6 +16,8 @@ resource "aws_volume_attachment" "persistence" {
   device_name = "/dev/sdf"
   volume_id   = aws_ebs_volume.persistence.id
   instance_id = aws_instance.mastodon.id
+
+  stop_instance_before_detaching = true
 }
 
 resource "aws_s3_bucket" "file_storage" {

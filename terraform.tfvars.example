@@ -1,8 +1,8 @@
 domain = "your-mastodon.site"
 owner_email = "user@host.com"
+region = "us-west-2"
 
 # This name will must globally unique, and will be visible to users as a hostname.
 # terraform will create and manage it for you.
 # no dots or underscores
 bucket_name = "your-mastodon"
-region = "us-west-2"

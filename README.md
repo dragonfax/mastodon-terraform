@@ -32,7 +32,7 @@ This project is for people that want to "own" their own instance, get their hand
 
 # Setup
 
-These instructions assume that you have the terraform cli installed, as well as the AWS cli.
+These instructions assume that you have the terraform cli installed, as well as the AWS cli. And that you know how to use git.
 
 AWS
   1. Create your AWS account

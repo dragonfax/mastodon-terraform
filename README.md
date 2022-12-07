@@ -32,6 +32,8 @@ This project is for people that want to "own" their own instance, get their hand
 
 # Setup
 
+These instructions assume that you have the terraform cli installed, as well as the AWS cli.
+
 AWS
   1. Create your AWS account
   2. Generate and download your IAM credentials

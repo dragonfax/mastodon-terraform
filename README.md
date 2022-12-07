@@ -30,6 +30,22 @@ If you just want someone else to manage things, there are private mastodon provi
 
 This project is for people that want to "own" their own instance, get their hands dirty, customize it. Maybe even hack it.
 
+## Features
+
+* Sets up the SMTP credentials with SES, as well as your email and domain verification (DKIM)
+* Includes elasticsearch
+* Uses a seperate EBS volume for holding the persistent data safely through reboots and upgrades
+* S3 for files and images
+* Manages the DNS zone and routes.\
+You still need to register your own domain, and point your registrar to AWS nameservers.
+* Creation/update/destroy is handled through a single terraform command.\
+No manual intervention. No long list of commands to enter.
+* Opens a hole in the VPC for your home IP (and only your IP) to ssh into the host.
+* Generates and manages the keys for you.
+* Creates daily backups of the databases
+* Runs on ARM for lower cost.
+* Fetches an ssl cert for your domain, automatically
+
 # Setup
 
 These instructions assume that you have the terraform cli installed, as well as the AWS cli. And that you know how to use git.
